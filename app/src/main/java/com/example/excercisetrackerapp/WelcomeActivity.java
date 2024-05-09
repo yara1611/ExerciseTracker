@@ -1,5 +1,6 @@
 package com.example.excercisetrackerapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -23,5 +24,15 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         Button signIn = findViewById(R.id.signin_btn);
         Button signUp = findViewById(R.id.signup_btn);
+
+        signIn.setOnClickListener(v->{
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+        signUp.setOnClickListener(v->{
+            Intent intent = new Intent(this, SignupActivity.class);
+            startActivity(intent);
+        });
     }
 }
