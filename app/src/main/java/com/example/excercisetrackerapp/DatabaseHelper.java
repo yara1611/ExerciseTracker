@@ -40,15 +40,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         userDB.close();
     }
+    
 
     public boolean LogInCheck(String email,String password){
         userDB=getReadableDatabase();
         String[] rowDetails = {"password"};
         boolean loginSucc = false;
         Cursor cursor = userDB.query("User",rowDetails,"email='"+email+"'",null,null,null,null);
-        if(cursor!=null){
+        if(cursor != null && cursor.moveToFirst()){
             String storedPass=cursor.getString(cursor.getColumnIndexOrThrow("password"));
             loginSucc= password.equals(storedPass);
+        }
+        if (cursor != null) {
+            cursor.close();
         }
 
         userDB.close();

@@ -28,14 +28,14 @@ public class LoginActivity extends AppCompatActivity {
         EditText pass = findViewById(R.id.LoginPass);
         Button loginBtn = findViewById(R.id.login_btn);
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
-        /*loginBtn.setOnClickListener(v->{
+        loginBtn.setOnClickListener(v->{
             boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
-            if(check){
+            /*if(check){
                 Intent intent = new Intent(this, shows.class);
                 startActivity(intent);
             }else{
                 Toast.makeText(this,"Log In Failed",Toast.LENGTH_LONG).show();
-            }
-        });*/
+            }*/
+        });
     }
 }
