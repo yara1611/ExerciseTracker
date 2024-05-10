@@ -1,6 +1,5 @@
 package com.example.excercisetrackerapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
 
         Button addBtn = findViewById(R.id.add_btn);
         addBtn.setOnClickListener(v->{
-            dbHelper.CreateOne(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
+            dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
         });
         Button showBtn = findViewById(R.id.show_btn);
         /*showBtn.setOnClickListener(v->{

@@ -17,17 +17,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a table
-        db.execSQL("CREATE TABLE User (id INTEGER PRIMARY KEY, name TEXT NOT NULL, UserName TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE User (id INTEGER PRIMARY KEY, name TEXT NOT NULL, userName TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE Routine (id INTEGER PRIMARY KEY, name TEXT NOT NULL, userId INTEGER NOT NULL, FOREIGN KEY(userId) REFERENCES User(id))");
+        db.execSQL("CREATE TABLE Exercise (id INTEGER PRIMARY KEY, name TEXT NOT NULL, routineId INTEGER NOT NULL, sets INTEGER NOT NULL, reps INTEGER NOT NULL, weight INTEGER NOT NULL, FOREIGN KEY(routineId) REFERENCES Routine(id))");
+        db.execSQL("CREATE TABLE Workout (id INTEGER PRIMARY KEY, name TEXT NOT NULL, exerciseId INTEGER NOT NULL, sets INTEGER NOT NULL, reps INTEGER NOT NULL, weight INTEGER NOT NULL, notes TEXT NOT NULL, FOREIGN KEY(exerciseId) REFERENCES Exercise(id))");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Handle database upgrades if needed
-        db.execSQL("drop table if exists User");
+        // Drop tables if they exist and recreate them
+        db.execSQL("DROP TABLE IF EXISTS Workout");
+        db.execSQL("DROP TABLE IF EXISTS User");
+        db.execSQL("DROP TABLE IF EXISTS Exercise");
+        db.execSQL("DROP TABLE IF EXISTS Routines");
         onCreate(db);
     }
 
-    public void CreateOne(String name, String UserName, String email, String password){
+    public void CreateRoutine(String name, int userId,int routineId){
+        userDB=getWritableDatabase();
+        ContentValues row = new ContentValues();
+        row.put("name",name);
+        row.put("userId",userId);
+        row.put("routineId",routineId);
+        userDB.insert("Routine",null,row);
+        userDB.close();
+
+    }
+    public void CreateOneUser(String name, String UserName, String email, String password){
         userDB = getWritableDatabase();
         ContentValues row = new ContentValues();
         row.put("name",name);
@@ -40,7 +57,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         userDB.close();
     }
-    
+    public void CreateExercise(String name, int routineId, int exerciseId, int sets, int reps, int weight){
+        userDB=getWritableDatabase();
+        ContentValues row = new ContentValues();
+        row.put("name",name);
+        row.put("routineId",routineId);
+        row.put("sets",sets);
+        row.put("reps",reps);
+        row.put("weight",weight);
+        userDB.insert("Exercise",null,row);
+        userDB.close();
+
+    }
+    public void CreateWorkout(String name, int exerciseId, int sets, int reps, int weight, String notes){
+        userDB=getWritableDatabase();
+        ContentValues row = new ContentValues();
+        row.put("name",name);
+        row.put("exerciseId",exerciseId);
+        row.put("sets",sets);
+        row.put("reps",reps);
+        row.put("weight",weight);
+        row.put("notes",notes);
+        userDB.insert("Workout",null,row);
+        userDB.close();
+    }
+public Cursor GetAllExercises(){
+        userDB=getReadableDatabase();
+        String[] rowDetails = {"name","sets","reps","weight", "notes"};
+        Cursor cursor = userDB.query("Exercise",rowDetails,null,null,null,null,null);
+        if(cursor != null ){
+            cursor.moveToFirst();
+
+        }
+        userDB.close();
+        return cursor;
+}
+public Cursor GetUserRoutine(int userId){
+        userDB=getReadableDatabase();
+        String[] rowDetails = { "name","id","userId"};
+        Cursor cursor = userDB.query("Routine",rowDetails,"userId='"+userId+"'",null,null,null,null);
+        if(cursor != null ){
+            cursor.moveToFirst();
+
+        }
+        userDB.close();
+        return cursor;
+}
 
     public boolean LogInCheck(String email,String password){
         userDB=getReadableDatabase();
@@ -58,5 +120,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         userDB.close();
         return loginSucc;
     }
+
 }
 
