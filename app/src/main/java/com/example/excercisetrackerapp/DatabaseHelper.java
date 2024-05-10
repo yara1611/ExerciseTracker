@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ComponentDB";
@@ -46,11 +47,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void CreateOneUser(String name, String UserName, String email, String password){
         userDB = getWritableDatabase();
-        ContentValues row = new ContentValues();
-        row.put("name",name);
-        row.put("UserName",UserName);
-        row.put("email",email);
-        row.put("password",password);
+
+            ContentValues row = new ContentValues();
+            row.put("name",name);
+            row.put("UserName",UserName);
+            row.put("email",email);
+            row.put("password",password);
+
+
 
         // NullColumnHack here means that if the ContentValues is empty, the database will insert a row with NULL values.
         userDB.insert("User", null, row);
@@ -104,7 +108,8 @@ public Cursor GetUserRoutine(int userId){
         return cursor;
 }
 
-    public boolean LogInCheck(String email,String password){
+
+public boolean LogInCheck(String email,String password){
         userDB=getReadableDatabase();
         String[] rowDetails = {"password"};
         boolean loginSucc = false;
@@ -120,6 +125,23 @@ public Cursor GetUserRoutine(int userId){
         userDB.close();
         return loginSucc;
     }
+
+    public boolean userCheck(String email){
+        userDB=getReadableDatabase();
+        String[] rowDetails = {"email"};
+        boolean check = false;
+        Cursor cursor = userDB.query("User",rowDetails,"email='"+email+"'",null,null,null,null);
+        if(cursor.getCount()>1){
+            check= true;
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        userDB.close();
+        return check;
+    }
+
 
 }
 

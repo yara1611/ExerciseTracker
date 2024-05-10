@@ -30,12 +30,14 @@ public class LoginActivity extends AppCompatActivity {
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         loginBtn.setOnClickListener(v->{
             boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
-            /*if(check){
-                Intent intent = new Intent(this, shows.class);
+            if(check){
+                Intent intent = new Intent(this, DashboardActivity.class);
+                intent.putExtra("USERNAME", email.getText().toString().replaceAll("@.*", ""));
                 startActivity(intent);
+
             }else{
                 Toast.makeText(this,"Log In Failed",Toast.LENGTH_LONG).show();
-            }*/
+            }
         });
     }
 }
