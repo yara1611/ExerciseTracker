@@ -1,5 +1,6 @@
 package com.example.excercisetrackerapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,11 +30,10 @@ public class SignupActivity extends AppCompatActivity {
             dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
         });
         Button showBtn = findViewById(R.id.show_btn);
-        /*showBtn.setOnClickListener(v->{
-            Intent intent = new Intent(this,shows.class);
+        showBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
-        });*/
-        // Get a readable database
+        });
 
     }
 }
