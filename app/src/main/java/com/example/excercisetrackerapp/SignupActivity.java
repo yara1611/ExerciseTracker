@@ -1,10 +1,8 @@
 package com.example.excercisetrackerapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,19 +26,13 @@ public class SignupActivity extends AppCompatActivity {
 
         Button addBtn = findViewById(R.id.add_btn);
         addBtn.setOnClickListener(v->{
-            if(dbHelper.userCheck(inEmail.getText().toString())){
-                Toast.makeText(this,"User Already Exists",Toast.LENGTH_LONG).show();
-            }else{
-                dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
-                Toast.makeText(this,"Signed Up Successfully",Toast.LENGTH_LONG).show();
-            }
-
+            dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
         });
         Button showBtn = findViewById(R.id.show_btn);
-        showBtn.setOnClickListener(v->{
-            Intent intent = new Intent(this,LoginActivity.class);
+        /*showBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this,shows.class);
             startActivity(intent);
-        });
+        });*/
         // Get a readable database
 
     }
