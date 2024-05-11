@@ -1,5 +1,6 @@
 package com.example.excercisetrackerapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -72,21 +73,19 @@ public class ExerciseListFragment extends Fragment {
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext()); // Initialize database helper
         // Retrieve exercises from database and display
         exerciseList = dbHelper.GetAllExercises();
-        if (exerciseList != null && exerciseList.moveToFirst()) {  // Move to first row
-            StringBuilder exerciseText = new StringBuilder();
-            do {
-                String exerciseName = exerciseList.getString(exerciseList.getColumnIndexOrThrow("name"));
-                exerciseText.append(exerciseName).append("\n");
-            } while (exerciseList.moveToNext()); // Move to next row
-
-            getActivity().runOnUiThread(() -> {
-                // Update TextView here
-                exerciseTextView.setText(exerciseText.toString());
-            });;
-        } else {
-            exerciseTextView.setText("No exercises found");
+        startService();
+        if(exerciseList!=null&&exerciseList.moveToFirst()){
+            int col = exerciseList.getColumnIndexOrThrow("name");
+            String data=exerciseList.getString(col);
+            exerciseTextView.setText(data);
         }
-
+        else {
+            exerciseTextView.setText("No Data Found");
+        }
         return view;
+    }
+    private void startService() {
+        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), ExerciseService.class);
+        getActivity().startService(serviceIntent);
     }
 }
