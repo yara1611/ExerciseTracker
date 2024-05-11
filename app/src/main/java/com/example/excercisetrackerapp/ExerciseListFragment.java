@@ -79,7 +79,10 @@ public class ExerciseListFragment extends Fragment {
                 exerciseText.append(exerciseName).append("\n");
             } while (exerciseList.moveToNext()); // Move to next row
 
-            exerciseTextView.setText(exerciseText.toString());
+            getActivity().runOnUiThread(() -> {
+                // Update TextView here
+                exerciseTextView.setText(exerciseText.toString());
+            });;
         } else {
             exerciseTextView.setText("No exercises found");
         }

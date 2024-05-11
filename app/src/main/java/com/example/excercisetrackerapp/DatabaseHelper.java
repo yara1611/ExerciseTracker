@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -38,12 +39,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createExerciseTableQuery = "CREATE TABLE Exercise (" +
                 "id INTEGER PRIMARY KEY," +
                 "name TEXT NOT NULL," +
-                "routineId INTEGER NOT NULL," +
-                "sets INTEGER NOT NULL," +
-                "reps INTEGER NOT NULL," +
-                "weight INTEGER NOT NULL," +
-                "FOREIGN KEY(routineId) REFERENCES Routine(id))";
+                "force TEXT," +
+                "level TEXT," +
+                "mechanic TEXT," +
+                "equipment TEXT," +
+                "primaryMuscles TEXT," +
+                "secondaryMuscles TEXT," +
+                "instructions TEXT," +
+                "category TEXT," +
+                "images TEXT)";
         db.execSQL(createExerciseTableQuery);
+
+                // ... other fields
+
+
+                // ... and so on for other fields
+
 
         // Create Workout table
         String createWorkoutTableQuery = "CREATE TABLE Workout (" +
@@ -115,10 +126,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         userDB=getWritableDatabase();
         ContentValues row = new ContentValues();
         row.put("name",exercise.name);
-        row.put("difficulty",exercise.difficulty);
+        row.put("force",exercise.force);
+        row.put("level",exercise.level);
+        row.put("mechanic",exercise.mechanic);
         row.put("equipment",exercise.equipment);
-        row.put("instructions",exercise.instructions);
-        row.put("muscle",exercise.muscle);
+        row.put("primaryMuscles", String.valueOf(exercise.primaryMuscles));
+        row.put("secondaryMuscles", String.valueOf(exercise.secondaryMuscles));
+        row.put("instructions", String.valueOf(exercise.instructions));
+        row.put("category",exercise.category);
+        row.put("images", String.valueOf(exercise.images));
+        row.put("id",exercise.id);
         userDB.insert("Exercise",null,row);
         userDB.close();
 
@@ -136,16 +153,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         userDB.close();
     }
     // crud gettttt
-public Cursor GetAllExercises(){
-        userDB=getReadableDatabase();
-        Cursor cursor = userDB.query("Exercise", new String[]{"name"},null,null,null,null,null);
-        if(cursor != null ){
-            cursor.moveToFirst();
+    public Cursor GetAllExercises() {
+        userDB = getReadableDatabase();
+        Cursor cursor = userDB.query("Exercise", new String[]{"name"}, null, null, null, null, null);
 
+        // Log the query result
+        if (cursor != null) {
+            Log.d("DatabaseHelper", "Number of exercises found: " + cursor.getCount());
+        } else {
+            Log.e("DatabaseHelper", "Error: Cursor is null");
+        }
+
+        if (cursor != null) {
+            cursor.moveToFirst();
         }
         userDB.close();
         return cursor;
-}
+    }
 public Cursor GetUserRoutine(int userId){
         userDB=getReadableDatabase();
         String[] rowDetails = { "name","id","userId"};
@@ -244,21 +268,7 @@ public boolean LogInCheck(String email,String password){
         return check;
     }
 
-    public boolean userCheck(String email){
-        userDB=getReadableDatabase();
-        String[] rowDetails = {"email"};
-        boolean check = false;
-        Cursor cursor = userDB.query("User",rowDetails,"email='"+email+"'",null,null,null,null);
-        if(cursor.getCount()>1){
-            check= true;
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
 
-        userDB.close();
-        return check;
-    }
 
 
 }

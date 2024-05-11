@@ -20,8 +20,8 @@ public class ExerciseService extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public ExerciseService(String name) {
-        super(name);
+    public ExerciseService() {
+        super("ExerciseService"); // Name for the worker thread
     }
 
     @Override
