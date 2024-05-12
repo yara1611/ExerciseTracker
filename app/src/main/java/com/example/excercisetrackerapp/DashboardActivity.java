@@ -27,6 +27,12 @@ public class DashboardActivity extends AppCompatActivity {
                 showCreateRoutineDialog();
 
         });
+
+        Button got_to_exercieses_btn =  findViewById(R.id.exercises_button);
+        got_to_exercieses_btn.setOnClickListener(v->{
+            Intent intent = new Intent(this, ExerciseListActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void showCreateRoutineDialog() {
@@ -47,8 +53,8 @@ public class DashboardActivity extends AppCompatActivity {
                     // Here you can perform any action with the routineName, such as creating a new routine
                     // For example, you can call a method to insert the routine into the database
                     // insertRoutine(routineName);
-                    Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(DashboardActivity.this, .class);
+                    //startActivity(intent);
                     dialog.dismiss();
                 } else {
                     editTextRoutineName.setError("Please enter routine name");

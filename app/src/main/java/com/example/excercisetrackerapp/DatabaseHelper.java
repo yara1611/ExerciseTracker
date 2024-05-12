@@ -39,15 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createExerciseTableQuery = "CREATE TABLE Exercise (" +
                 "id INTEGER PRIMARY KEY," +
                 "name TEXT NOT NULL," +
-                "force TEXT," +
-                "level TEXT," +
-                "mechanic TEXT," +
+                "type TEXT," +
+                "muscle TEXT," +
                 "equipment TEXT," +
-                "primaryMuscles TEXT," +
-                "secondaryMuscles TEXT," +
-                "instructions TEXT," +
-                "category TEXT," +
-                "images TEXT)";
+                "difficulty TEXT," +
+                "instructions TEXT)";
         db.execSQL(createExerciseTableQuery);
 
                 // ... other fields
