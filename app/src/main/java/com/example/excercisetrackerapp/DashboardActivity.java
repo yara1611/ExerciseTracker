@@ -1,7 +1,9 @@
 package com.example.excercisetrackerapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,10 @@ public class DashboardActivity extends AppCompatActivity {
                     // insertRoutine(routineName);
                     //Intent intent = new Intent(DashboardActivity.this, .class);
                     //startActivity(intent);
+                    DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    int userId = Integer.parseInt(preferences.getString("userID","0"));
+                    dbh.CreateRoutine(routineName,userId);
                     dialog.dismiss();
                 } else {
                     editTextRoutineName.setError("Please enter routine name");

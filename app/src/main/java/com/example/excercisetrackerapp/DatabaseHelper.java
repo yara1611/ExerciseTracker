@@ -84,12 +84,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 // crud createeee
-    public void CreateRoutine(String name, int userId,int routineId){
+    public void CreateRoutine(String name, int userId){
         userDB=getWritableDatabase();
         ContentValues row = new ContentValues();
         row.put("name",name);
         row.put("userId",userId);
-        row.put("routineId",routineId);
         userDB.insert("Routine",null,row);
         userDB.close();
 
@@ -170,7 +169,6 @@ public Cursor GetUserRoutine(int userId){
         Cursor cursor = userDB.query("Routine",rowDetails,"userId='"+userId+"'",null,null,null,null);
         if(cursor != null ){
             cursor.moveToFirst();
-
         }
         userDB.close();
         return cursor;

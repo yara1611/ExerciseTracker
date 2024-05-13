@@ -1,5 +1,8 @@
 package com.example.excercisetrackerapp.Adapters;
 
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -55,20 +58,21 @@ public class ExerciseListRecyclerAdapter extends RecyclerView.Adapter<ExerciseLi
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public final TextView exerciseName;
 
-
+        String userId;
         ExerciseListRecyclerAdapter exerciseListRecyclerAdapter;
         public ViewHolder(@NonNull View itemView, ExerciseListRecyclerAdapter exerciseListRecyclerAdapter) {
             super(itemView);
             exerciseName = itemView.findViewById(R.id.exercise_list_item);
-
             this.exerciseListRecyclerAdapter = exerciseListRecyclerAdapter;
             exerciseName.clearFocus();
 
 
             DatabaseHelper exercises = new DatabaseHelper(itemView.getContext());
+
             exerciseName.setOnClickListener(v->{
                 Intent in = new Intent(itemView.getContext(), ExerciseInfoActivity.class);
                 in.putExtra("ExerciseName",exerciseName.getText().toString());
+
                 itemView.getContext().startActivity(in);
 
             });

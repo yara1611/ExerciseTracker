@@ -36,6 +36,7 @@ public class SignupActivity extends AppCompatActivity {
             }
 
         });
+
         Button showBtn = findViewById(R.id.show_btn);
         showBtn.setOnClickListener(v->{
             Intent intent = new Intent(this,LoginActivity.class);

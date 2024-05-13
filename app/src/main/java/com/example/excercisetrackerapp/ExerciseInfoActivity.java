@@ -1,7 +1,9 @@
 package com.example.excercisetrackerapp;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -67,14 +69,15 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.add_to_routine_dialog, null);
         RadioButton routine = findViewById(R.id.radioButton);
-        Button btnSave = dialogView.findViewById(R.id.btn_add_to_routine);
+        Button btnSave = dialogView.findViewById(R.id.btn_save);
         DatabaseHelper routines = new DatabaseHelper(getApplicationContext());
-        int userId = Integer.parseInt(getIntent().getStringExtra("userID"));
-        Cursor cursor = routines.GetUserRoutine(userId);
-        final RecyclerView recyclerView = findViewById(R.id.rdBtn_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int userId = Integer.parseInt(preferences.getString("userID","0"));
 
-        recyclerView.setAdapter(new RoutineRecyclerAdapter(cursor));
+        Cursor cursorRou = routines.GetUserRoutine(userId);
+        final RecyclerView recyclerView = dialogView.findViewById(R.id.rdBtn_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RoutineRecyclerAdapter(cursorRou));
 
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
