@@ -1,4 +1,6 @@
-package com.example.excercisetrackerapp;
+package com.example.excercisetrackerapp.Models;
+
+import com.example.excercisetrackerapp.Models.Exercise;
 
 import java.util.List;
 

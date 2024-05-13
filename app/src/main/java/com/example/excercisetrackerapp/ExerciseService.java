@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.example.excercisetrackerapp.Models.APIInterface;
+import com.example.excercisetrackerapp.Models.Exercise;
+
 import java.util.List;
 
 import retrofit2.Call;

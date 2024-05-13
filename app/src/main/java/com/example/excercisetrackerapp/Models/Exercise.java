@@ -1,4 +1,4 @@
-package com.example.excercisetrackerapp;
+package com.example.excercisetrackerapp.Models;
 
 public class Exercise {
     private String name;

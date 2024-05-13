@@ -3,8 +3,6 @@ package com.example.excercisetrackerapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +11,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.excercisetrackerapp.Adapters.ExerciseListRecyclerAdapter;
 
 public class ExerciseListActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class ExerciseListActivity extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new RecyclerAdapter(cursor));
+        recyclerView.setAdapter(new ExerciseListRecyclerAdapter(cursor));
 
         /*Button goToAddBtn = findViewById(R.id.go_to_add_btn);
         goToAddBtn.setOnClickListener(v->{
@@ -51,7 +51,7 @@ public class ExerciseListActivity extends AppCompatActivity {
         System.out.println("onRestart() Called");
 
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
-        RecyclerAdapter adapter = (RecyclerAdapter) recyclerView.getAdapter();
+        ExerciseListRecyclerAdapter adapter = (ExerciseListRecyclerAdapter) recyclerView.getAdapter();
 
         DatabaseHelper exercises = new DatabaseHelper(getApplicationContext());
         Cursor cursor = exercises.GetAllExercises();
@@ -62,7 +62,7 @@ public class ExerciseListActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecyclerAdapter adapter = (RecyclerAdapter) recyclerView.getAdapter();
+        ExerciseListRecyclerAdapter adapter = (ExerciseListRecyclerAdapter) recyclerView.getAdapter();
         adapter.clearData();
     }
 

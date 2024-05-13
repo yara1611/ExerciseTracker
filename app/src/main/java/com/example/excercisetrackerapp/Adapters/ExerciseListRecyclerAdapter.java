@@ -1,22 +1,25 @@
-package com.example.excercisetrackerapp;
+package com.example.excercisetrackerapp.Adapters;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+import com.example.excercisetrackerapp.DatabaseHelper;
+import com.example.excercisetrackerapp.ExerciseInfoActivity;
+import com.example.excercisetrackerapp.R;
+
+public class ExerciseListRecyclerAdapter extends RecyclerView.Adapter<ExerciseListRecyclerAdapter.ViewHolder> {
 
 
 
     public Cursor cursor;
-    public RecyclerAdapter(Cursor cursor) {
+    public ExerciseListRecyclerAdapter(Cursor cursor) {
         this.cursor = cursor;
     }
 
@@ -53,12 +56,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public final TextView exerciseName;
 
 
-        RecyclerAdapter recyclerAdapter;
-        public ViewHolder(@NonNull View itemView, RecyclerAdapter recyclerAdapter) {
+        ExerciseListRecyclerAdapter exerciseListRecyclerAdapter;
+        public ViewHolder(@NonNull View itemView, ExerciseListRecyclerAdapter exerciseListRecyclerAdapter) {
             super(itemView);
             exerciseName = itemView.findViewById(R.id.exercise_list_item);
 
-            this.recyclerAdapter= recyclerAdapter;
+            this.exerciseListRecyclerAdapter = exerciseListRecyclerAdapter;
             exerciseName.clearFocus();
 
 
