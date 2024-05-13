@@ -6,7 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.excercisetrackerapp.Models.Exercise;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ComponentDB";
@@ -39,15 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createExerciseTableQuery = "CREATE TABLE Exercise (" +
                 "id INTEGER PRIMARY KEY," +
                 "name TEXT NOT NULL," +
-                "force TEXT," +
-                "level TEXT," +
-                "mechanic TEXT," +
+                "type TEXT," +
+                "muscle TEXT," +
                 "equipment TEXT," +
-                "primaryMuscles TEXT," +
-                "secondaryMuscles TEXT," +
-                "instructions TEXT," +
-                "category TEXT," +
-                "images TEXT)";
+                "difficulty TEXT," +
+                "instructions TEXT)";
         db.execSQL(createExerciseTableQuery);
 
                 // ... other fields
@@ -124,19 +121,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void CreateExercise(Exercise exercise){
         userDB=getWritableDatabase();
-        ContentValues row = new ContentValues();
-        row.put("name",exercise.name);
-        row.put("force",exercise.force);
-        row.put("level",exercise.level);
-        row.put("mechanic",exercise.mechanic);
-        row.put("equipment",exercise.equipment);
-        row.put("primaryMuscles", String.valueOf(exercise.primaryMuscles));
-        row.put("secondaryMuscles", String.valueOf(exercise.secondaryMuscles));
-        row.put("instructions", String.valueOf(exercise.instructions));
-        row.put("category",exercise.category);
-        row.put("images", String.valueOf(exercise.images));
-        row.put("id",exercise.id);
-        userDB.insert("Exercise",null,row);
+        ContentValues rows = new ContentValues();
+        rows.put("name",exercise.getName());
+        rows.put("type",exercise.getType());
+        rows.put("difficulty",exercise.getDifficulty());
+        rows.put("equipment",exercise.getEquipment());
+        rows.put("muscle",exercise.getMuscle());
+        rows.put("instructions",exercise.getInstructions());
+        userDB=getWritableDatabase();
+        userDB.insert("Exercise",null,rows);
         userDB.close();
 
     }
@@ -192,7 +185,21 @@ public Cursor getRoutineWorkout(int routineId){
         return cursor;
 
 
-}public Cursor getMuscles(){
+}
+
+    public Cursor getExercise(String exName){
+        userDB=getReadableDatabase();
+        String[] rowDetails = { "name","type","difficulty","equipment","instructions","muscle"};
+        Cursor cursor = userDB.query("Exercise",rowDetails,"name='"+exName+"'",null,null,null,null);
+        if(cursor != null ){
+            cursor.moveToFirst();
+        }
+        userDB.close();
+        return cursor;
+
+
+    }
+public Cursor getMuscles(){
         userDB=getReadableDatabase();
         Cursor cursor = userDB.query("Muscle", new String[]{"name"},null,null,null,null,null);
          if(cursor != null ){

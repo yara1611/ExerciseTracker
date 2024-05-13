@@ -2,18 +2,13 @@ package com.example.excercisetrackerapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -27,13 +22,19 @@ public class DashboardActivity extends AppCompatActivity {
                 showCreateRoutineDialog();
 
         });
+
+        Button got_to_exercieses_btn =  findViewById(R.id.exercises_button);
+        got_to_exercieses_btn.setOnClickListener(v->{
+            Intent intent = new Intent(this, ExerciseListActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void showCreateRoutineDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.create_routine_dialog, null);
         EditText editTextRoutineName = dialogView.findViewById(R.id.edit_text_routine_name);
-        Button btnCreate = dialogView.findViewById(R.id.btn_create);
+        Button btnCreate = dialogView.findViewById(R.id.btn_save);
 
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
@@ -47,8 +48,8 @@ public class DashboardActivity extends AppCompatActivity {
                     // Here you can perform any action with the routineName, such as creating a new routine
                     // For example, you can call a method to insert the routine into the database
                     // insertRoutine(routineName);
-                    Intent intent = new Intent(DashboardActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(DashboardActivity.this, .class);
+                    //startActivity(intent);
                     dialog.dismiss();
                 } else {
                     editTextRoutineName.setError("Please enter routine name");
