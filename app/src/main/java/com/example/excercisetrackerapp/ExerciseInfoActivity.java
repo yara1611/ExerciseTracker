@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.excercisetrackerapp.Adapters.RoutineRecyclerAdapter;
 
 public class ExerciseInfoActivity extends AppCompatActivity {
 
@@ -50,35 +55,40 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             txt.setText("Exercise Not Found");
         }
 
-
+        Button addToRou = findViewById(R.id.button);
+        addToRou.setOnClickListener(v->{
+            showAddToRoutineDialog();
+        });
 
     }
 
     private void showAddToRoutineDialog() {
         //Add Radio Buttons with Names of Existing Routines
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.create_routine_dialog, null);
-        EditText editTextRoutineName = dialogView.findViewById(R.id.edit_text_routine_name);
-        Button btnSave = dialogView.findViewById(R.id.btn_save);
+        View dialogView = getLayoutInflater().inflate(R.layout.add_to_routine_dialog, null);
+        RadioButton routine = findViewById(R.id.radioButton);
+        Button btnSave = dialogView.findViewById(R.id.btn_add_to_routine);
+        DatabaseHelper routines = new DatabaseHelper(getApplicationContext());
+        int userId = Integer.parseInt(getIntent().getStringExtra("userID"));
+        Cursor cursor = routines.GetUserRoutine(userId);
+        final RecyclerView recyclerView = findViewById(R.id.rdBtn_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(new RoutineRecyclerAdapter(cursor));
 
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
         dialog.show();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
             @Override
             public void onClick(View v) {
-                String routineName = editTextRoutineName.getText().toString().trim();
-                if (!TextUtils.isEmpty(routineName)) {
-                    // Here you can perform any action with the routineName, such as creating a new routine
-                    // For example, you can call a method to insert the routine into the database
-                    // insertRoutine(routineName);
-                    //Intent intent = new Intent(DashboardActivity.this, .class);
-                    //startActivity(intent);
-                    dialog.dismiss();
-                } else {
-                    editTextRoutineName.setError("Please enter routine name");
-                }
+
             }
         });
     }
