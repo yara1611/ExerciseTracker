@@ -184,7 +184,21 @@ public Cursor getRoutineWorkout(int routineId){
         return cursor;
 
 
-}public Cursor getMuscles(){
+}
+
+    public Cursor getExercise(String exName){
+        userDB=getReadableDatabase();
+        String[] rowDetails = { "name","type","difficulty","equipment","instructions","muscle"};
+        Cursor cursor = userDB.query("Exercise",rowDetails,"name='"+exName+"'",null,null,null,null);
+        if(cursor != null ){
+            cursor.moveToFirst();
+        }
+        userDB.close();
+        return cursor;
+
+
+    }
+public Cursor getMuscles(){
         userDB=getReadableDatabase();
         Cursor cursor = userDB.query("Muscle", new String[]{"name"},null,null,null,null,null);
          if(cursor != null ){

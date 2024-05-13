@@ -27,6 +27,7 @@ public class ExerciseListActivity extends AppCompatActivity {
             return insets;
         });
         DatabaseHelper exercises = new DatabaseHelper(getApplicationContext());
+
         Cursor cursor = exercises.GetAllExercises();
         startService();
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -55,7 +56,16 @@ public class ExerciseListActivity extends AppCompatActivity {
         DatabaseHelper exercises = new DatabaseHelper(getApplicationContext());
         Cursor cursor = exercises.GetAllExercises();
         adapter.cursor = cursor;
+        adapter.notifyDataSetChanged();
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        final RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerAdapter adapter = (RecyclerAdapter) recyclerView.getAdapter();
+        adapter.clearData();
+    }
+
 
     private void startService() {
         Intent serviceIntent = new Intent(getApplicationContext(), ExerciseService.class);

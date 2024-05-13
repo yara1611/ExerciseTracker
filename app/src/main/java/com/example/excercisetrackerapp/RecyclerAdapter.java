@@ -37,6 +37,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
+    public void clearData() {
+        if (cursor != null) {
+            cursor.close();
+            cursor = null;
+        }
+    }
+
     @Override
     public int getItemCount() {
         return cursor.getCount();
