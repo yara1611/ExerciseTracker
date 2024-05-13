@@ -29,10 +29,11 @@ public class LoginActivity extends AppCompatActivity {
         Button loginBtn = findViewById(R.id.login_btn);
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         loginBtn.setOnClickListener(v->{
+            String userId=getIntent().getStringExtra("userID");
             boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
             if(check){
                 Intent intent = new Intent(this, DashboardActivity.class);
-               // intent.putExtra("USERNAME", email.getText().toString().replaceAll("@.*", ""));
+                intent.putExtra("userID", userId);
                 startActivity(intent);
 
             }else{

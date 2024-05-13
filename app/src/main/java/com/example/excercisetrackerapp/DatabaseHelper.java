@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.excercisetrackerapp.Models.Exercise;
 
@@ -174,6 +175,7 @@ public Cursor GetUserRoutine(int userId){
         userDB.close();
         return cursor;
 }
+
 public Cursor getRoutineWorkout(int routineId){
         userDB=getReadableDatabase();
         String[] rowDetails = { "name","sets","reps","weight","notes"};
@@ -259,20 +261,18 @@ public boolean LogInCheck(String email,String password){
         userDB.close();
         return loginSucc;
     }
-    public boolean userCheck(String email){
+    public Cursor getUser(String email){
         userDB=getReadableDatabase();
         String[] rowDetails = {"email"};
-        boolean check = false;
+
         Cursor cursor = userDB.query("User",rowDetails,"email='"+email+"'",null,null,null,null);
-        if(cursor.getCount()>1){
-            check= true;
-        }
+
         if (cursor != null) {
             cursor.close();
         }
 
         userDB.close();
-        return check;
+        return cursor;
     }
 
 

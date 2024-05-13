@@ -68,9 +68,9 @@ public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecycler
 
             DatabaseHelper exercises = new DatabaseHelper(itemView.getContext());
             routineName.setOnClickListener(v->{
-                Intent in = new Intent(itemView.getContext(), ExerciseInfoActivity.class);
-                in.putExtra("RoutineName", routineName.getText().toString());
-                itemView.getContext().startActivity(in);
+               // Intent in = new Intent(itemView.getContext(), ExerciseInfoActivity.class);
+               // in.putExtra("RoutineName", routineName.getText().toString());
+               // itemView.getContext().startActivity(in);
 
             });
         }
