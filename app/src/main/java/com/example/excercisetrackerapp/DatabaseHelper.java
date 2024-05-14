@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // NullColumnHack here means that if the ContentValues is empty, the database will insert a row with NULL values.
         userDB.insert("User", null, row);
-
+        Log.d("TAG", "CreateOneUser: Created user ");
         userDB.close();
     }
     public void CreateExercise(Exercise exercise){
@@ -181,8 +181,12 @@ public Cursor GetUserRoutine(int userId){
         userDB=getReadableDatabase();
         String[] rowDetails = { "name","id"};
         Cursor cursor = userDB.query("Routine",rowDetails,"userId='"+userId+"'and name='"+routineName+"'",null,null,null,null);
-        if(cursor != null ){
-            cursor.moveToFirst();
+        if (cursor != null&&cursor.moveToFirst()) {
+            Log.i("Cursor Status", "GetRoutine: DONE");
+            return cursor;
+        }
+        else {
+            cursor.close();
         }
         userDB.close();
         return cursor;

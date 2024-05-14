@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -36,6 +37,9 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
+        Log.d("UserID", "onCreate: UserID->"+userId);
         String exerciseName = getIntent().getStringExtra("ExerciseName");
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbh.getExercise(exerciseName);
@@ -59,20 +63,39 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             txt.setText("Exercise Not Found");
         }
 
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
+
         EditText Reps= findViewById(R.id.Reps_Text);
         EditText Weight= findViewById(R.id.Weight_Label);
         EditText Sets= findViewById(R.id.Sets_Text);
         EditText Notes= findViewById(R.id.Notes_Text);
 
-       Cursor Exerciseid = dbh.getExercise(exerciseName);
+        Cursor Exerciseid = dbh.getExercise(exerciseName);
+        String routineN = sharedPreferences.getString("routineName",null);
+        Log.d("TAG", "onCreate: "+routineN);
+        Cursor RoutineID= dbh.GetRoutine(routineN,userId );
         Button addToRou = findViewById(R.id.button);
-        addToRou.setOnClickListener(v->{
-            Cursor RoutineID= dbh.GetRoutine(getIntent().getStringExtra("routineName"),userId );
-            dbh.CreateWorkout(exerciseName,Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id")),Integer.parseInt( Reps.getText().toString()),Integer.parseInt(Weight.getText().toString()),Integer.parseInt(Sets.getText().toString()),Notes.getText().toString(),RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id")));
-            Log.d ("Routine" ,"Added to Routine");
-        });
+        int exerciseId = Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id"));
+
+        if (RoutineID != null && RoutineID.moveToFirst()) {
+            int routineId = RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id"));
+            // Proceed with further operations using routineId
+        } else {
+            Log.e("ExerciseInfoActivity", "Routine ID not found for the given routine name and user ID");
+            // Handle the case where the routine ID is not found, e.g., display an error message
+        }
+        if (RoutineID != null && RoutineID.moveToFirst()) {
+            int routineId = RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id"));
+            Log.d("TAG", "onCreate: RoutineID->"+routineId);
+            addToRou.setOnClickListener(v->{
+
+                dbh.CreateWorkout(exerciseName,exerciseId,Integer.parseInt( Reps.getText().toString()),Integer.parseInt(Weight.getText().toString()),Integer.parseInt(Sets.getText().toString()),Notes.getText().toString(),routineId);
+                Log.d ("Routine" ,"Added to Routine");
+            });
+        }
+        else{
+            Toast.makeText(this, "ExerciseID does not exists", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

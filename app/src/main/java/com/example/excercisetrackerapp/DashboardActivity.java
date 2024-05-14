@@ -21,6 +21,7 @@ import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +58,11 @@ public class DashboardActivity extends AppCompatActivity {
         dialog.show();
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = preferences.edit();
             @Override
             public void onClick(View v) {
+
                 String routineName = editTextRoutineName.getText().toString().trim();
                 if (!TextUtils.isEmpty(routineName)) {
                     // Here you can perform any action with the routineName, such as creating a new routine
@@ -72,7 +76,9 @@ public class DashboardActivity extends AppCompatActivity {
                     int userId = Integer.parseInt(preferences.getString("userID","0"));
                     dbh.CreateRoutine(routineName,userId);
                     Intent intent = new Intent(DashboardActivity.this, ExerciseListActivity.class);
-                    intent.putExtra("routineName", routineName);
+
+                    editor.putString("routineName", routineName);
+                    editor.apply();
                     startActivity(intent);
                     dialog.dismiss();
                 } else {

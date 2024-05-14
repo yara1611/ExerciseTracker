@@ -3,6 +3,7 @@ package com.example.excercisetrackerapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
         addBtn.setOnClickListener(v->{
 
                 dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
-
+                Log.d("TAG", "onCreate: Added User");
 
         });
 

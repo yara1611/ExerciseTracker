@@ -1,7 +1,9 @@
 package com.example.excercisetrackerapp.Adapters;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.excercisetrackerapp.RoutineWorkoutsActivity;
 public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecyclerAdapter.ViewHolder> {
 
 
+    // Retrieve user
 
     public Cursor cursor;
     public RoutineRecyclerAdapter(Cursor cursor) {
