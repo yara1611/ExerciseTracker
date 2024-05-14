@@ -55,8 +55,10 @@ public class DashboardActivity extends AppCompatActivity  {
 
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
-        dialog.show();
 
+
+
+        dialog.show();
         btnCreate.setOnClickListener(new View.OnClickListener() {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = preferences.edit();
@@ -64,7 +66,9 @@ public class DashboardActivity extends AppCompatActivity  {
             public void onClick(View v) {
 
 
-                String routineName = editTextRoutineName.getText().toString().trim();
+                String routineName= routineName = editTextRoutineName.getText().toString().trim();
+
+
                 if (!TextUtils.isEmpty(routineName)) {
 
                     DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
