@@ -32,11 +32,13 @@ public class DashboardActivity extends AppCompatActivity {
 
         });
 
-        Button got_to_exercieses_btn =  findViewById(R.id.exercises_button);
-        got_to_exercieses_btn.setOnClickListener(v->{
+        Button got_to_exercises_btn =  findViewById(R.id.exercises_button);
+        got_to_exercises_btn.setOnClickListener(v->{
             Intent intent = new Intent(this, ExerciseListActivity.class);
             startActivity(intent);
         });
+
+
         ViewPager2 viewPager = findViewById(R.id.Pager);
         List<Fragment> fragments = new ArrayList<>();
         RoutinesFragments routinesFragments = new RoutinesFragments();
@@ -61,18 +63,18 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String routineName = editTextRoutineName.getText().toString().trim();
                 if (!TextUtils.isEmpty(routineName)) {
-                    // Here you can perform any action with the routineName, such as creating a new routine
-                    // For example, you can call a method to insert the routine into the database
-                    // insertRoutine(routineName);
-                    //Intent intent = new Intent(DashboardActivity.this, .class);
 
-                    //startActivity(intent);
                     DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
+
+                    //get global variable
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     int userId = Integer.parseInt(preferences.getString("userID","0"));
+
                     dbh.CreateRoutine(routineName,userId);
+
+                    //Navigatet to another activity
                     Intent intent = new Intent(DashboardActivity.this, ExerciseListActivity.class);
-                    intent.putExtra("routineName", routineName);
+                    intent.putExtra("routineName", routineName); //send variable to next activity
                     startActivity(intent);
                     dialog.dismiss();
                 } else {

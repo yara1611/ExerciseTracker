@@ -36,6 +36,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //get the variable received from prev activity
         String exerciseName = getIntent().getStringExtra("ExerciseName");
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbh.getExercise(exerciseName);
@@ -61,16 +62,16 @@ public class ExerciseInfoActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
-        EditText Reps= findViewById(R.id.Reps_Text);
-        EditText Weight= findViewById(R.id.Weight_Label);
-        EditText Sets= findViewById(R.id.Sets_Text);
-        EditText Notes= findViewById(R.id.Notes_Text);
+        int Reps= Integer.parseInt(((EditText)findViewById(R.id.Reps_Text)).getText().toString());
+        int Weight= Integer.parseInt(((EditText)findViewById(R.id.Weight_Label)).getText().toString());
+        int Sets= Integer.parseInt(((EditText)findViewById(R.id.Sets_Text)).getText().toString());
+        String Notes= ((EditText)findViewById(R.id.Notes_Text)).getText().toString();
 
        Cursor Exerciseid = dbh.getExercise(exerciseName);
         Button addToRou = findViewById(R.id.button);
         addToRou.setOnClickListener(v->{
             Cursor RoutineID= dbh.GetRoutine(getIntent().getStringExtra("routineName"),userId );
-            dbh.CreateWorkout(exerciseName,Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id")),Integer.parseInt( Reps.getText().toString()),Integer.parseInt(Weight.getText().toString()),Integer.parseInt(Sets.getText().toString()),Notes.getText().toString(),RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id")));
+            dbh.CreateWorkout(exerciseName,Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id")),Reps,Weight,Sets,Notes,RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id")));
             Log.d ("Routine" ,"Added to Routine");
         });
 

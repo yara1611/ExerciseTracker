@@ -28,15 +28,16 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        EditText email = findViewById(R.id.login_email);
-        EditText pass = findViewById(R.id.LoginPass);
+
+        String email = ((EditText) findViewById(R.id.login_email)).getText().toString();
+        String pass = ((EditText)findViewById(R.id.LoginPass)).getText().toString();
         Button loginBtn = findViewById(R.id.login_btn);
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
 
         loginBtn.setOnClickListener(v->{
-            Cursor cursor = dbh.getUser(email.getText().toString());
+            Cursor cursor = dbh.getUser(email);
             if(cursor != null && cursor.moveToFirst()){
                 String userId;
                 if(getIntent().getStringExtra("userID")!=null){
@@ -45,10 +46,11 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     userId = cursor.getString(cursor.getColumnIndexOrThrow("id"));
                 }
-                boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
+                boolean check =dbh.LogInCheck(email,pass);
                 if(check){
                     Intent intent = new Intent(this, DashboardActivity.class);
                     //intent.putExtra("userID", userId);
+                    //set global variable
                     editor.putString("userID", userId);
                     editor.apply();
                     Log.d("TAG", "onCreate: "+userId);
