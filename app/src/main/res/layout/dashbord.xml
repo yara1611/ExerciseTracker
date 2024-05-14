@@ -44,12 +44,6 @@
                 android:layout_weight="1"
                 android:text="Create Routine" />
 
-            <Button
-                android:id="@+id/btn_track_workout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Track Workout" />
         </LinearLayout>
 
         <!-- RecyclerView to Display Training Routines or Recent Workouts -->

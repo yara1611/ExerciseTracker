@@ -23,8 +23,9 @@ public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecycler
 
     // Retrieve user
 
+    private String className;
     public Cursor cursor;
-    public RoutineRecyclerAdapter(Cursor cursor) {
+    public RoutineRecyclerAdapter(Cursor cursor ) {
         this.cursor = cursor;
     }
 
@@ -71,6 +72,8 @@ public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecycler
 
 
             DatabaseHelper routines = new DatabaseHelper(itemView.getContext());
+
+
             routineName.setOnClickListener(v->{
                 Intent in = new Intent(itemView.getContext(), RoutineWorkoutsActivity.class);
                 in.putExtra("RoutineName", routineName.getText().toString());

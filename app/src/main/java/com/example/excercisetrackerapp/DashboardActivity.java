@@ -19,7 +19,7 @@ import com.example.excercisetrackerapp.Adapters.ViewPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity  {
 
 
     @Override

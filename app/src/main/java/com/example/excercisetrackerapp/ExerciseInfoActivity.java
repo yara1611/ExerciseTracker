@@ -4,25 +4,17 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.excercisetrackerapp.Adapters.RoutineRecyclerAdapter;
 
 public class ExerciseInfoActivity extends AppCompatActivity {
 
@@ -32,7 +24,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_exercise_info);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.Note), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.wo_info), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -43,7 +35,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         String exerciseName = getIntent().getStringExtra("ExerciseName");
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbh.getExercise(exerciseName);
-        TextView txt = findViewById(R.id.textView3);
+        TextView txt = findViewById(R.id.wo_title);
         TextView txtInfo = findViewById(R.id.textView4);
         if(cursor!=null){
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
@@ -64,10 +56,15 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         }
 
 
+
+
         EditText Reps= findViewById(R.id.Reps_Text);
         EditText Weight= findViewById(R.id.Weight_Label);
         EditText Sets= findViewById(R.id.Sets_Text);
         EditText Notes= findViewById(R.id.Notes_Text);
+
+
+
 
         Cursor Exerciseid = dbh.getExercise(exerciseName);
         String routineN = sharedPreferences.getString("routineName",null);
@@ -75,9 +72,13 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         Cursor RoutineID= dbh.GetRoutine(routineN,userId );
         Button addToRou = findViewById(R.id.button);
         int exerciseId = Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id"));
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+
 
         if (RoutineID != null && RoutineID.moveToFirst()) {
             int routineId = RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id"));
+            edit.putInt("RoutineID",routineId);
+            edit.apply();
             // Proceed with further operations using routineId
         } else {
             Log.e("ExerciseInfoActivity", "Routine ID not found for the given routine name and user ID");

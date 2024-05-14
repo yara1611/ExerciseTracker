@@ -197,9 +197,13 @@ public Cursor getRoutineWorkout(int routineId){
         userDB=getReadableDatabase();
         String[] rowDetails = { "name","sets","reps","weight","notes"};
         Cursor cursor = userDB.query("Workout",rowDetails,"routineId='"+routineId+"'",null,null,null,null);
-        if(cursor != null ){
-            cursor.moveToFirst();
-        }
+    if (cursor != null&&cursor.moveToFirst()) {
+        Log.i("Cursor Status", "GetWorkout: DONE");
+        return cursor;
+    }
+    else {
+        cursor.close();
+    }
         userDB.close();
         return cursor;
 
