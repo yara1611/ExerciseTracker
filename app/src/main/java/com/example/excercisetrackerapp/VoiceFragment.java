@@ -61,6 +61,8 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
 
     private ActivityResultLauncher<Void> speechRecognitionLauncher;
 
+    public String routineNameVoice;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class VoiceFragment extends Fragment implements RecognitionListener {
         speechRecognitionLauncher = registerForActivityResult(new VoiceResultContract(), result -> {
             if (result != null) {
                 ((TextView) rootView.findViewById(R.id.txt_speech)).setText(result);
+                routineNameVoice=result;
             }
         });
 

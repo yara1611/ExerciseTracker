@@ -24,8 +24,10 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         Button signIn = findViewById(R.id.signin_btn);
         Button signUp = findViewById(R.id.signup_btn);
+
         VoiceFragment voiceFragment = new VoiceFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.voice_container,voiceFragment).commit();
+
         signIn.setOnClickListener(v->{
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
