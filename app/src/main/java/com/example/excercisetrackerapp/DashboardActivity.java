@@ -27,6 +27,9 @@ public class DashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashbord);
 
+        MusicFragment musicFragment = new MusicFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.MusicFragmentContainer,musicFragment).commit();
+
         Button btnCreateRoutine = findViewById(R.id.btn_create_routine);
         btnCreateRoutine.setOnClickListener( v-> {
                 showCreateRoutineDialog();

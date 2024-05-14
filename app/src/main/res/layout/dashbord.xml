@@ -15,6 +15,7 @@
 
     <!-- Container for Main Content -->
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -62,5 +63,19 @@
 
             />
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/MusicFragmentContainer"
+        android:name="com.example.excercisetrackerapp.MusicFragment"
+        android:layout_width="385dp"
+        android:layout_height="429dp"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="20dp" />
 
 </RelativeLayout>
