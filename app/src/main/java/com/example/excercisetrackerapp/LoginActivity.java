@@ -2,8 +2,10 @@ package com.example.excercisetrackerapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,17 +36,30 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
 
         loginBtn.setOnClickListener(v->{
-            String userId=getIntent().getStringExtra("userID");
-            boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
-            if(check){
-                Intent intent = new Intent(this, DashboardActivity.class);
-                //intent.putExtra("userID", userId);
-                editor.putString("userID", userId);
-                editor.apply();
-                startActivity(intent);
-
-            }else{
-                Toast.makeText(this,"Log In Failed",Toast.LENGTH_LONG).show();
+            Cursor cursor = dbh.getUser(email.getText().toString());
+            if(cursor != null && cursor.moveToFirst()){
+                String userId;
+                if(getIntent().getStringExtra("userID")!=null){
+                    userId= getIntent().getStringExtra("userID");
+                }
+                else{
+                    userId = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                }
+                boolean check =dbh.LogInCheck(email.getText().toString(),pass.getText().toString());
+                if(check){
+                    Intent intent = new Intent(this, DashboardActivity.class);
+                    //intent.putExtra("userID", userId);
+                    editor.putString("userID", userId);
+                    editor.apply();
+                    Log.d("TAG", "onCreate: "+userId);
+                    startActivity(intent);
+                    cursor.close();
+                    dbh.close();
+                }else {
+                    Toast.makeText(LoginActivity.this, "Log In Failed", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "User not found", Toast.LENGTH_LONG).show();
             }
         });
     }

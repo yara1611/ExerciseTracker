@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.excercisetrackerapp.Adapters.RoutineRecyclerAdapter;
 
 public class ExerciseInfoActivity extends AppCompatActivity {
-
+    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,43 +58,49 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         }else{
             txt.setText("Exercise Not Found");
         }
+        EditText Reps= findViewById(R.id.Reps_Text);
+        EditText Weight= findViewById(R.id.Weight_Label);
+        EditText Sets= findViewById(R.id.Sets_Text);
+        EditText Notes= findViewById(R.id.Notes_Text);
 
+       Cursor Exerciseid = dbh.getExercise(exerciseName);
         Button addToRou = findViewById(R.id.button);
         addToRou.setOnClickListener(v->{
-            showAddToRoutineDialog();
+            Cursor RoutineID= dbh.GetRoutine(getIntent().getStringExtra("routineName"),userId );
+            dbh.CreateWorkout(exerciseName,Exerciseid.getInt(Exerciseid.getColumnIndexOrThrow("id")),Integer.parseInt( Reps.getText().toString()),Integer.parseInt(Weight.getText().toString()),Integer.parseInt(Sets.getText().toString()),Notes.getText().toString(),RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id")));
+            Log.d ("Routine" ,"Added to Routine");
         });
 
     }
 
-    private void showAddToRoutineDialog() {
-        //Add Radio Buttons with Names of Existing Routines
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = getLayoutInflater().inflate(R.layout.add_to_routine_dialog, null);
-        RadioButton routine = findViewById(R.id.radioButton);
-        Button btnSave = dialogView.findViewById(R.id.btn_save);
-        DatabaseHelper routines = new DatabaseHelper(getApplicationContext());
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int userId = Integer.parseInt(preferences.getString("userID","0"));
+//    private void showAddToRoutineDialog() {
+//        //Add Radio Buttons with Names of Existing Routines
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        View dialogView = getLayoutInflater().inflate(R.layout.add_to_routine_dialog, null);
+//        RadioButton routine = findViewById(R.id.radioButton);
+//        Button btnSave = dialogView.findViewById(R.id.btn_save);
+//        DatabaseHelper routines = new DatabaseHelper(getApplicationContext());
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//        int userId = Integer.parseInt(preferences.getString("userID","0"));
+//
+//        Cursor cursorRou = routines.GetUserRoutine(userId);
+//        final RecyclerView recyclerView = dialogView.findViewById(R.id.rdBtn_recycler);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new RoutineRecyclerAdapter(cursorRou));
+//
+//        builder.setView(dialogView);
+//        final AlertDialog dialog = builder.create();
+//        dialog.show();
 
-        Cursor cursorRou = routines.GetUserRoutine(userId);
-        final RecyclerView recyclerView = dialogView.findViewById(R.id.rdBtn_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RoutineRecyclerAdapter(cursorRou));
-
-        builder.setView(dialogView);
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-
-
-
-
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//
+//
+//
+//
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
-}

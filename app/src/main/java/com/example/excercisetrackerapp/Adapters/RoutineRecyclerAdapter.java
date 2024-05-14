@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.excercisetrackerapp.DatabaseHelper;
 import com.example.excercisetrackerapp.ExerciseInfoActivity;
 import com.example.excercisetrackerapp.R;
+import com.example.excercisetrackerapp.RoutineWorkoutsActivity;
 
 public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecyclerAdapter.ViewHolder> {
 
@@ -68,9 +69,9 @@ public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecycler
 
             DatabaseHelper routines = new DatabaseHelper(itemView.getContext());
             routineName.setOnClickListener(v->{
-               // Intent in = new Intent(itemView.getContext(), ExerciseInfoActivity.class);
-               // in.putExtra("RoutineName", routineName.getText().toString());
-               // itemView.getContext().startActivity(in);
+                Intent in = new Intent(itemView.getContext(), RoutineWorkoutsActivity.class);
+                in.putExtra("RoutineName", routineName.getText().toString());
+                itemView.getContext().startActivity(in);
 
             });
         }

@@ -29,18 +29,16 @@ public class SignupActivity extends AppCompatActivity {
 
         Button addBtn = findViewById(R.id.add_btn);
         addBtn.setOnClickListener(v->{
-            if(cursor.getCount()>1){
-                Toast.makeText(this,"Already Exists",Toast.LENGTH_LONG).show();
-            }else{
+
                 dbHelper.CreateOneUser(inName.getText().toString(),inUN.getText().toString(),inEmail.getText().toString(),inPass.getText().toString());
-            }
+
 
         });
 
         Button showBtn = findViewById(R.id.show_btn);
         showBtn.setOnClickListener(v->{
             Intent intent = new Intent(this,LoginActivity.class);
-            intent.putExtra("userID",cursor.getColumnIndexOrThrow("userID"));
+            intent.putExtra("userID",cursor.getColumnIndexOrThrow("id"));
             startActivity(intent);
         });
 

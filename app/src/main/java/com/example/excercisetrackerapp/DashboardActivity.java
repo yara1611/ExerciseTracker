@@ -11,6 +11,13 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.excercisetrackerapp.Adapters.ViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -30,6 +37,13 @@ public class DashboardActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ExerciseListActivity.class);
             startActivity(intent);
         });
+        ViewPager2 viewPager = findViewById(R.id.Pager);
+        List<Fragment> fragments = new ArrayList<>();
+        RoutinesFragments routinesFragments = new RoutinesFragments();
+        fragments.add(routinesFragments);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, fragments);
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setCurrentItem(fragments.indexOf(routinesFragments));
     }
 
     private void showCreateRoutineDialog() {
@@ -51,11 +65,15 @@ public class DashboardActivity extends AppCompatActivity {
                     // For example, you can call a method to insert the routine into the database
                     // insertRoutine(routineName);
                     //Intent intent = new Intent(DashboardActivity.this, .class);
+
                     //startActivity(intent);
                     DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     int userId = Integer.parseInt(preferences.getString("userID","0"));
                     dbh.CreateRoutine(routineName,userId);
+                    Intent intent = new Intent(DashboardActivity.this, ExerciseListActivity.class);
+                    intent.putExtra("routineName", routineName);
+                    startActivity(intent);
                     dialog.dismiss();
                 } else {
                     editTextRoutineName.setError("Please enter routine name");

@@ -63,6 +63,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "reps INTEGER NOT NULL," +
                 "weight INTEGER NOT NULL," +
                 "notes TEXT NOT NULL," +
+                "routineId INTEGER NOT NULL," +
+                "FOREIGN KEY(routineId) REFERENCES Routine(id)," +
                 "FOREIGN KEY(exerciseId) REFERENCES Exercise(id))";
         db.execSQL(createWorkoutTableQuery);
         // Create Muscle table
@@ -133,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         userDB.close();
 
     }
-    public void CreateWorkout(String name, int exerciseId, int sets, int reps, int weight, String notes){
+    public void CreateWorkout(String name, int exerciseId, int sets, int reps, int weight, String notes, int routineId){
         userDB=getWritableDatabase();
         ContentValues row = new ContentValues();
         row.put("name",name);
@@ -142,9 +144,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         row.put("reps",reps);
         row.put("weight",weight);
         row.put("notes",notes);
+        row.put("routineId",routineId);
         userDB.insert("Workout",null,row);
         userDB.close();
     }
+
     // crud gettttt
     public Cursor GetAllExercises() {
         userDB = getReadableDatabase();
@@ -173,6 +177,17 @@ public Cursor GetUserRoutine(int userId){
         userDB.close();
         return cursor;
 }
+    public Cursor GetRoutine(String routineName,int userId){
+        userDB=getReadableDatabase();
+        String[] rowDetails = { "name","id"};
+        Cursor cursor = userDB.query("Routine",rowDetails,"userId='"+userId+"'and name='"+routineName+"'",null,null,null,null);
+        if(cursor != null ){
+            cursor.moveToFirst();
+        }
+        userDB.close();
+        return cursor;
+    }
+
 
 public Cursor getRoutineWorkout(int routineId){
         userDB=getReadableDatabase();
@@ -189,7 +204,7 @@ public Cursor getRoutineWorkout(int routineId){
 
     public Cursor getExercise(String exName){
         userDB=getReadableDatabase();
-        String[] rowDetails = { "name","type","difficulty","equipment","instructions","muscle"};
+        String[] rowDetails = { "name","type","difficulty","equipment","instructions","muscle","id"};
         Cursor cursor = userDB.query("Exercise",rowDetails,"name='"+exName+"'",null,null,null,null);
         if(cursor != null ){
             cursor.moveToFirst();
@@ -261,11 +276,14 @@ public boolean LogInCheck(String email,String password){
     }
     public Cursor getUser(String email){
         userDB=getReadableDatabase();
-        String[] rowDetails = {"email"};
+        String[] rowDetails = {"email","id"};
 
         Cursor cursor = userDB.query("User",rowDetails,"email='"+email+"'",null,null,null,null);
 
-        if (cursor != null) {
+        if (cursor != null&&cursor.moveToFirst()) {
+            return cursor;
+        }
+        else {
             cursor.close();
         }
 
