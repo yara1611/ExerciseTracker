@@ -36,6 +36,10 @@ public class SignupActivity extends AppCompatActivity {
 
         });
 
+
+        CameraFragment cameraFragment = new CameraFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.camera_fragment_container,cameraFragment).commit();
+
         Button showBtn = findViewById(R.id.show_btn);
         showBtn.setOnClickListener(v->{
             Intent intent = new Intent(this,LoginActivity.class);
