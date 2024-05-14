@@ -9,7 +9,7 @@
     <string name="stop_music">Stop Music</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="welcome_message">Welcome to FitForma</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create_routine">Create Routine</string>
     <string name="welcome_to_fitforma">Welcome to FitForma</string>
