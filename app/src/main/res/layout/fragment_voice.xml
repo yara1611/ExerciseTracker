@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/voice_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    tools:context=".VoiceFragment">
+
+    <ImageButton
+        android:id="@+id/speak_btn"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="200dp"
+        android:contentDescription="@string/speak_btn" />
+
+    <TextView
+        android:id="@+id/txt_speech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:padding="10dp"
+        android:text="@string/tap_mic_and_speak"
+        android:textSize="30sp" />
+
+</LinearLayout>

@@ -3,6 +3,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign in</string>
     <string name="take_pfp">Take Profile Picture</string>
+    <string name="tap_mic_and_speak">Tap Mic and Speak</string>
+    <string name="speak_btn">Speak</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
