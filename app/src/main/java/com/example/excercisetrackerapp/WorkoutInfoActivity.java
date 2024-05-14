@@ -26,20 +26,34 @@ public class WorkoutInfoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int userId = Integer.parseInt(sharedPreferences.getString("userID", "0"));
-        Log.d("UserID", "onCreate: UserID->" + userId);
-
-        // Initialize DatabaseHelper
 
         String exerciseName = getIntent().getStringExtra("WorkoutName");
 
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbh.getExercise(exerciseName);
-        String routineN = sharedPreferences.getString("routineName",null);
-        Cursor cursorWO = dbh.getRoutineWorkout(sharedPreferences.getInt("RoutineID",0));
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int userId = Integer.parseInt(sharedPreferences.getString("userID", "0"));
+        //int routineId = Integer.parseInt(sharedPreferences.getString("WoRoutineID", "0"));
+        Log.d("UserID", "onCreate: UserID->" + userId);
+
+        String routineN = sharedPreferences.getString("routineName", null);
+        Log.d("TAG", "onCreate: " + routineN);
+        Cursor RoutineID= dbh.GetRoutine(routineN,userId);
+        int routineID = RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id"));
+        Log.d("RoutineID", "onCreate: ROUTINEID->" + routineID);
+
+
+        Cursor WorkoutID = dbh.getRoutineWorkout(routineID);
+        int reps = WorkoutID.getInt(WorkoutID.getColumnIndexOrThrow("reps"));
+        int sets = WorkoutID.getInt(WorkoutID.getColumnIndexOrThrow("sets"));
+        int weights = WorkoutID.getInt(WorkoutID.getColumnIndexOrThrow("weight"));
+        String Notes = WorkoutID.getString(WorkoutID.getColumnIndexOrThrow("notes"));
+
         TextView txt = findViewById(R.id.wo_title);
         TextView txtInfo = findViewById(R.id.textView4);
+
+
         if (cursor != null) {
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String Equipment = cursor.getString(cursor.getColumnIndexOrThrow("equipment"));
@@ -52,7 +66,11 @@ public class WorkoutInfoActivity extends AppCompatActivity {
                     "Difficulty: %s\n" +
                     "Type: %s\n" +
                     "Muscle: %s\n" +
-                    "Instructions: %s\n", Equipment, Difficulty, Type, Muscle, Instructions);
+                    "Instructions: %s\n"+
+                    "Reps: %d\n"+
+                    "Sets: %d\n"+
+                    "Weight: %d\n"+
+                    "Notes: %s\n", Equipment, Difficulty, Type, Muscle, Instructions,reps,sets,weights,Notes);
             txt.setText(name);
             txtInfo.setText(info);
 

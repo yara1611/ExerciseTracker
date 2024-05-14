@@ -23,6 +23,7 @@ public class RoutineRecyclerAdapter extends RecyclerView.Adapter<RoutineRecycler
 
     // Retrieve user
 
+
     private String className;
     public Cursor cursor;
     public RoutineRecyclerAdapter(Cursor cursor ) {

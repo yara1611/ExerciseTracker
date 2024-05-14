@@ -63,14 +63,10 @@ public class DashboardActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
+
                 String routineName = editTextRoutineName.getText().toString().trim();
                 if (!TextUtils.isEmpty(routineName)) {
-                    // Here you can perform any action with the routineName, such as creating a new routine
-                    // For example, you can call a method to insert the routine into the database
-                    // insertRoutine(routineName);
-                    //Intent intent = new Intent(DashboardActivity.this, .class);
 
-                    //startActivity(intent);
                     DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     int userId = Integer.parseInt(preferences.getString("userID","0"));

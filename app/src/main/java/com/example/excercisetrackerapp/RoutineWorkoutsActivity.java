@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,9 @@ import com.example.excercisetrackerapp.Adapters.ExerciseListRecyclerAdapter;
 import com.example.excercisetrackerapp.Adapters.WorkoutRecyclerAdapter;
 
 public class RoutineWorkoutsActivity extends AppCompatActivity {
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class RoutineWorkoutsActivity extends AppCompatActivity {
         int userId = Integer.parseInt(preferences.getString("userID","0"));
         Cursor RoutineID= workouts.GetRoutine(routineN,userId);
         int routineID = RoutineID.getInt(RoutineID.getColumnIndexOrThrow("id"));
+
+
 
         Cursor cursor = workouts.getRoutineWorkout(routineID);
 
