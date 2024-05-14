@@ -24,14 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.excercisetrackerapp.Adapters.RoutineRecyclerAdapter;
 
 public class ExerciseInfoActivity extends AppCompatActivity {
-    SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_exercise_info);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.Note), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -58,6 +58,9 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         }else{
             txt.setText("Exercise Not Found");
         }
+
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int userId = Integer.parseInt(sharedPreferences.getString("userID","0"));
         EditText Reps= findViewById(R.id.Reps_Text);
         EditText Weight= findViewById(R.id.Weight_Label);
         EditText Sets= findViewById(R.id.Sets_Text);
