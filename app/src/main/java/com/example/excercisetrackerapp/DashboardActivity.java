@@ -8,7 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -77,12 +79,17 @@ public class DashboardActivity extends AppCompatActivity  {
         EditText editTextRoutineName = dialogView.findViewById(R.id.edit_text_routine_name);
         Button btnCreate = dialogView.findViewById(R.id.btn_save);
 
+
         builder.setView(dialogView);
         final AlertDialog dialog = builder.create();
 
 
 
         dialog.show();
+
+
+
+
         btnCreate.setOnClickListener(new View.OnClickListener() {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = preferences.edit();
@@ -90,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity  {
             public void onClick(View v) {
 
 
-                String routineName= routineName = editTextRoutineName.getText().toString().trim();
+                String routineName = editTextRoutineName.getText().toString().trim();
 
 
                 if (!TextUtils.isEmpty(routineName)) {

@@ -28,8 +28,9 @@ public class ExerciseListActivity extends AppCompatActivity {
         });
         DatabaseHelper exercises = new DatabaseHelper(getApplicationContext());
 
-        Cursor cursor = exercises.GetAllExercises();
         startService();
+        Cursor cursor = exercises.GetAllExercises();
+
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

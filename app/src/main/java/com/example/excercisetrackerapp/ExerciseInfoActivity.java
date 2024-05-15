@@ -32,6 +32,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         int userId = Integer.parseInt(sharedPreferences.getString("userID", "0"));
         Log.d("UserID", "onCreate: UserID->" + userId);
         String exerciseName = getIntent().getStringExtra("ExerciseName");
+
         DatabaseHelper dbh = new DatabaseHelper(getApplicationContext());
         Cursor cursor = dbh.getExercise(exerciseName);
         TextView txt = findViewById(R.id.wo_title);
