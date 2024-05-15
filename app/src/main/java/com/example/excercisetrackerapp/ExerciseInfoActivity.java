@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +56,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
 
 
         EditText Reps = findViewById(R.id.Reps_Text);
-        EditText Weight = findViewById(R.id.Weight_Label);
+        EditText Weight = findViewById(R.id.Weight_Text);
         EditText Sets = findViewById(R.id.Sets_Text);
         EditText Notes = findViewById(R.id.Notes_Text);
 

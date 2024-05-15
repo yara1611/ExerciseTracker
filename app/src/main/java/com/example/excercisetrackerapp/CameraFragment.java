@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.pkmmte.view.CircularImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CameraFragment#newInstance} factory method to
@@ -58,7 +60,7 @@ public class CameraFragment extends Fragment {
         }
     }
 
-    private ImageView capturedImage;
+    private CircularImageView capturedImage;
     private ActivityResultLauncher<Void> takePhotoLauncher;
 
     @Override

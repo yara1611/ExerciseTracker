@@ -50,11 +50,23 @@
 
         <!-- RecyclerView to Display Training Routines or Recent Workouts -->
 
-        <Button
-            android:id="@+id/exercises_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exercises" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="370dp"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Routine" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workout Music" />
+
+        </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/Pager"
@@ -63,12 +75,6 @@
 
 
             />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/MusicFragmentContainer"
-            android:name="com.example.excercisetrackerapp.MusicFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

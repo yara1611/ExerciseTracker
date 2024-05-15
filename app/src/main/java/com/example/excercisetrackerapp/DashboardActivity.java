@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.excercisetrackerapp.Adapters.ViewPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,8 @@ public class DashboardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashbord);
 
-        MusicFragment musicFragment = new MusicFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.MusicFragmentContainer,musicFragment).commit();
+        //MusicFragment musicFragment = new MusicFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.MusicFragmentContainer,musicFragment).commit();
 
         Button btnCreateRoutine = findViewById(R.id.btn_create_routine);
         btnCreateRoutine.setOnClickListener( v-> {
@@ -36,18 +37,38 @@ public class DashboardActivity extends AppCompatActivity  {
 
         });
 
-        Button got_to_exercieses_btn =  findViewById(R.id.exercises_button);
-        got_to_exercieses_btn.setOnClickListener(v->{
-            Intent intent = new Intent(this, ExerciseListActivity.class);
-            startActivity(intent);
-        });
+        //Button got_to_exercieses_btn =  findViewById(R.id.exercises_button);
+        //got_to_exercieses_btn.setOnClickListener(v->{
+        //    Intent intent = new Intent(this, ExerciseListActivity.class);
+        //    startActivity(intent);
+        //});
+
         ViewPager2 viewPager = findViewById(R.id.Pager);
         List<Fragment> fragments = new ArrayList<>();
-        RoutinesFragments routinesFragments = new RoutinesFragments();
-        fragments.add(routinesFragments);
+
+        fragments.add(new RoutinesFragments());
+        fragments.add(new MusicFragment());
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, fragments);
         viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setCurrentItem(fragments.indexOf(routinesFragments));
+        TabLayout tabLayout= findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        //viewPager.setCurrentItem(fragments.indexOf(routinesFragments));
     }
 
     private void showCreateRoutineDialog() {

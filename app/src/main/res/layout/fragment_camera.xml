@@ -18,15 +18,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024" />
 
-    <ImageView
+    <com.pkmmte.view.CircularImageView
         android:id="@+id/captured_image"
-        android:layout_width="368dp"
-        android:layout_height="462dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="134dp"
+
+        android:src="@drawable/ic_launcher_foreground"
+        app:border="true"
+        app:border_color="#EEEEEE"
+        app:border_width="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.719"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_capture"
+        app:layout_constraintVertical_bias="0.0"
+        app:shadow="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

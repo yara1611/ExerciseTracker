@@ -7,6 +7,12 @@ appcompat = "1.6.1"
 material = "1.12.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
+mkloader = "1.4.0"
+leavesloading = "1.0.2"
+circularProgress = "<latest version>"
+dataLoadingLayout = "0.1.2"
+mutlcolorloadingview = "1.0.0"
+circularimageview = "1.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -16,6 +22,12 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mkloader = { group = "com.tuyenmonkey", name = "mkloader", version.ref = "mkloader" }
+leavesloading = { group = "com.github.LinYaoTian", name = "LeavesLoading", version.ref = "leavesloading" }
+circular-progress = { group = "com.github.franriadigos", name = "circular-progress", version.ref = "circularProgress" }
+data-loading-layout = { group = "com.lvleo", name = "data-loading-layout", version.ref = "dataLoadingLayout" }
+mutlcolorloadingview = { module = "com.mutlcolorloadingview:mutlcolorloadingview", version.ref = "mutlcolorloadingview" }
+circularimageview = { group = "com.pkmmte.view", name = "circularimageview", version.ref = "circularimageview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
