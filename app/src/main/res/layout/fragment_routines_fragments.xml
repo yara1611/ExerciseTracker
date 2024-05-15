@@ -8,5 +8,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Routines_Recycler_Fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#DDD4BA" />
 </FrameLayout>

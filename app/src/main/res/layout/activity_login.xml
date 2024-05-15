@@ -5,37 +5,26 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DDD4BA"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="167dp"
-        android:layout_marginTop="116dp"
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="72dp"
         android:text="Log In"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/login_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="19dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginPass" />
 
     <EditText
         android:id="@+id/LoginPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -43,13 +32,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_email" />
 
-    <Button
-        android:id="@+id/login_btn"
+    <EditText
+        android:id="@+id/login_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="25dp"
-        android:text="Log In"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="84dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginPass" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="140dp"
+        android:text="Log In"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

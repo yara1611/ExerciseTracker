@@ -5,6 +5,7 @@
     android:id="@+id/wo_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DDD4BA"
     android:scrollIndicators="top"
     tools:context=".ExerciseInfoActivity">
 

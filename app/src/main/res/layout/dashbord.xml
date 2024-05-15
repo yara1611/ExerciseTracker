@@ -5,6 +5,8 @@
     android:layout_height="match_parent">
 
     <!-- Toolbar -->
+
+    <!-- Container for Main Content -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -13,8 +15,8 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    <!-- Container for Main Content -->
     <LinearLayout
+        android:id="@+id/Linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -26,7 +28,7 @@
             android:id="@+id/text_dashboard_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_to_fitforma"
+            android:text="Welcome to FitForma"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -42,7 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/create_routine" />
+                android:text="Create Routine" />
 
         </LinearLayout>
 
@@ -61,6 +63,13 @@
 
 
             />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/MusicFragmentContainer"
+            android:name="com.example.excercisetrackerapp.MusicFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </RelativeLayout>
