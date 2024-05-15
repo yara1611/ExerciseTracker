@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.excercisetrackerapp.Adapters.ExerciseListRecyclerAdapter;
+import com.example.excercisetrackerapp.Adapters.RoutineRecyclerAdapter;
 import com.example.excercisetrackerapp.Adapters.WorkoutRecyclerAdapter;
 
 public class RoutineWorkoutsActivity extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class RoutineWorkoutsActivity extends AppCompatActivity {
         System.out.println("onRestart() Called");
 
         RecyclerView recyclerView=findViewById(R.id.recyclerView_workouts);
-        ExerciseListRecyclerAdapter adapter = (ExerciseListRecyclerAdapter) recyclerView.getAdapter();
+        WorkoutRecyclerAdapter adapter = (WorkoutRecyclerAdapter) recyclerView.getAdapter();
 
         DatabaseHelper workouts = new DatabaseHelper(getApplicationContext());
         Cursor cursor = workouts.GetAllExercises();
@@ -73,10 +74,8 @@ public class RoutineWorkoutsActivity extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         final RecyclerView recyclerView = findViewById(R.id.recyclerView_workouts);
-        ExerciseListRecyclerAdapter adapter = (ExerciseListRecyclerAdapter) recyclerView.getAdapter();
+        WorkoutRecyclerAdapter adapter = (WorkoutRecyclerAdapter) recyclerView.getAdapter();
         adapter.clearData();
     }
-
-
 
 }

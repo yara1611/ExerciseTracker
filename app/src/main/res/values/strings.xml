@@ -5,7 +5,8 @@
     <string name="take_pfp">Take Profile Picture</string>
     <string name="tap_mic_and_speak">Tap Mic and Speak</string>
     <string name="speak_btn">Speak</string>
-
+    <string name="play_music">Play Music</string>
+    <string name="stop_music">Stop Music</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="create_routine">Create Routine</string>
